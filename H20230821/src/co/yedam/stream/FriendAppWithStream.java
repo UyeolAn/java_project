@@ -1,5 +1,6 @@
 package co.yedam.stream;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -96,11 +97,11 @@ public class FriendAppWithStream {
 		System.out.println("친구 목록입니다.");
 		System.out.println("-------------");
 		
-		System.out.println("-----------------------------------------------------");
+		System.out.println("-----------------------------------");
 		for (Friend f : friendList) {
 			System.out.println(f);
 		}
-		System.out.println("-----------------------------------------------------");
+		System.out.println("-----------------------------------");
 		
 	}
 	
@@ -109,31 +110,22 @@ public class FriendAppWithStream {
 		System.out.println("데이터를 불러오는 중입니다..");
 		
 		try {
-			FileReader fr = new FileReader(file);
-			while (true) {
-				String line = "";
-				int val = fr.read(); 
-				if(val == -1) {
-					fr.close();
-					break;
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String line;
+			while ((line = br.readLine()) != null && line != "") {
+				String[] data = line.split(" ");
+				try {
+					friendList.add(new Friend(data[0], data[1], sdf.parse(data[2])));
+				} catch (ParseException e) {
+					e.printStackTrace();
 				}
-				if ((char) val == '\n') {
-					String[] data = line.split(" ");
-					System.out.println(data[0]);
-					try {
-						friendList.add(new Friend(data[0], data[1], sdf.parse(data[2])));
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-				}
-				line += val;
 			}
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println("데이터를 정상적으로 불러왔습니다.");
+		System.out.println("데이터를 정상적으로 불러왔습니다.\n\n\n+"
+				+ "");
 		
 	}
 	

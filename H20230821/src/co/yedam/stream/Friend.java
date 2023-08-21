@@ -52,7 +52,7 @@ public class Friend {
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return String.format("이름 : %s, 번호 : %s, 생년월일 : %s", 
+		return String.format("%s %s %s", 
 				this.name, this.phone, sdf.format(this.birth));		
 	}
 	
