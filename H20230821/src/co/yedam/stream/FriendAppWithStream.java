@@ -124,8 +124,7 @@ public class FriendAppWithStream {
 			e.printStackTrace();
 		}
 		
-		System.out.println("데이터를 정상적으로 불러왔습니다.\n\n\n+"
-				+ "");
+		System.out.println("데이터를 정상적으로 불러왔습니다.\n\n\n");
 		
 	}
 	
