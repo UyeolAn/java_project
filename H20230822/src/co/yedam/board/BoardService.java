@@ -2,7 +2,6 @@ package co.yedam.board;
 
 import java.util.List;
 
-// 파일 저장, DB 저장
 public interface BoardService {
 	
 	// main method

@@ -70,8 +70,8 @@ public class Reply {
 	// override method
 	@Override
 	public String toString() {
-		return "Reply [repNo=" + repNo + ", brdNo=" + brdNo + ", repContent=" + repContent + ", repWriter=" + repWriter
-				+ "]";
+		return "Reply [repNo=" + repNo + ", brdNo=" + brdNo + 
+			   ", repContent=" + repContent + ", repWriter=" + repWriter + "]";
 	}
 	
 	

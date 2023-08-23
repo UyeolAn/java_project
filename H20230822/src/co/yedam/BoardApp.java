@@ -31,29 +31,7 @@ public class BoardApp {
 		
 		boolean run = true;
 		
-		while (true) {
-			
-			System.out.println("-----------");
-			System.out.println("로그인 입니다.");
-			System.out.println("-----------");
-			
-			System.out.println("ID >>");
-			String id =  scn.nextLine();
-			
-			System.out.println("pwd >>");
-			String pwd =  scn.nextLine();
-			
-			User loginUser = new User(id, pwd);
-			
-			loginUserName = userService.checkLogin(loginUser);
-			if (loginUserName != null) {
-				System.out.print("\n\n\n");
-				break;
-			}
-			
-			System.out.print("\n\n\n");
-			
-		}
+		login(); // 성공할 때까지 계속 반복함
 	
 		while (run) {
 		
@@ -95,6 +73,34 @@ public class BoardApp {
 		
 		System.out.println("프로그램을 종료합니다.");
 		scn.close();
+		
+	}
+
+	private void login() {
+		
+		while (true) {
+			
+			System.out.println("-----------");
+			System.out.println("로그인 입니다.");
+			System.out.println("-----------");
+			
+			System.out.println("ID >>");
+			String id =  scn.nextLine();
+			
+			System.out.println("pwd >>");
+			String pwd =  scn.nextLine();
+			
+			User loginUser = new User(id, pwd);
+			
+			loginUserName = userService.checkLogin(loginUser);
+			if (loginUserName != null) {
+				System.out.print("\n\n\n");
+				break;
+			}
+			
+			System.out.print("\n\n\n");
+			
+		}
 		
 	}
 	

@@ -50,20 +50,20 @@ public class UserServiceJdbc implements UserService {
 	
 	
 	// method
-		private void disconn() {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (psmt != null) {
-					psmt.close();
-				}
-				if (conn != null) {
-					conn.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+	private void disconn() {
+		try {
+			if (rs != null) {
+				rs.close();
 			}
+			if (psmt != null) {
+				psmt.close();
+			}
+			if (conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+	}
 	
 }

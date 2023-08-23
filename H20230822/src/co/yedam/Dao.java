@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class Dao {
 	
-	static Connection conn;
+	private static Connection conn;
 	
 	public static Connection conn() {
 		try {
