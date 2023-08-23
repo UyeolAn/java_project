@@ -105,7 +105,7 @@ public class Board implements Serializable {
 	
 	// method
 	public String listInfo() {
-		return String.format("[%d] %s <%s>", brdNo, brdTitle, brdWriter);
+		return String.format("[%d] %s <%s> 댓글:", brdNo, brdTitle, brdWriter);
 	}
 	
 	public String showInfo() {

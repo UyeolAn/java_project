@@ -1,11 +1,15 @@
 package co.yedam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import co.yedam.board.Board;
 import co.yedam.board.BoardService;
 import co.yedam.board.BoardServiceJdbc;
+import co.yedam.reply.Reply;
+import co.yedam.reply.ReplyService;
+import co.yedam.reply.ReplyServiceJdbc;
 import co.yedam.user.User;
 import co.yedam.user.UserService;
 import co.yedam.user.UserServiceJdbc;
@@ -18,6 +22,8 @@ public class BoardApp {
 	private BoardService boardService = new BoardServiceJdbc();
 	
 	private UserService userService = new UserServiceJdbc();
+	
+	private ReplyService replyService = new ReplyServiceJdbc();
 	
 	private String loginUserName = null;
 	
@@ -159,7 +165,65 @@ public class BoardApp {
 		
 		Board searchBoard = boardService.search(targetNo);
 		if (searchBoard != null) {
-			System.out.println(searchBoard.showInfo());
+			
+			int repPage = 1;
+			boolean repRun = true;
+			
+			while (repRun) {
+				
+				System.out.println("---------------------------------------------");
+				System.out.println(searchBoard.showInfo());
+				System.out.println("---------------------------------------------");
+				
+				int lastPage = (int) Math.ceil(replyService.getTotal(targetNo) / 5.0);
+				
+				List<Reply> list = replyService.list(targetNo, repPage);
+				if (list.isEmpty()) {
+					System.out.println("댓글이 없습니다...");
+				} else {
+					System.out.printf("  [댓글 목록 %d/%d]\n", repPage, lastPage);
+					for (Reply rep : list) {
+						System.out.println(rep.listInfo());
+					}
+				}
+				
+				System.out.println("---------------------------------------------");
+				System.out.println("1.이전 | 2.다음 | 3.댓글등록 | 4.댓글삭제 | 9.매뉴로 >>");
+				
+				int repMenu = inputNumber();
+				
+				switch (repMenu) {
+				
+					case 1:
+						if (repPage > 1) {
+							repPage--;
+						} else {
+							System.out.println("첫 번째 페이지입니다.");
+						}
+						break;
+					case 2:
+						if (repPage < lastPage) {
+							repPage++;
+						} else {
+							System.out.println("마지막 페이지입니다.");
+						}
+						break;
+					case 3:
+						addReply(targetNo);
+						break;
+					case 4:
+						deleteReply();
+						break;
+					case 9:
+						System.out.println("메뉴로 돌아갑니다...");
+						repRun = false;
+						break;	
+						
+				}
+				
+				System.out.print("\n\n\n");
+				
+			}
 		} else {
 			System.out.println("조회 실패.");
 		}
@@ -172,6 +236,41 @@ public class BoardApp {
 		} catch (NumberFormatException e) {
 			return 0;
 		}
+	}
+	
+	private void addReply(int brdNo) {
+		
+		System.out.println("댓글을 입력하세요 >>");
+		String content =  scn.nextLine();
+		
+		Reply reply = new Reply(brdNo, content, loginUserName);
+		if (replyService.add(reply)) {;
+			System.out.println("댓글등록 성공!");
+		}
+		
+	}
+	
+	private void deleteReply() {
+		
+		System.out.println("댓글 번호 >>");
+		int targetRepNo =  parseNumber(scn.nextLine());
+		
+		String responseUser = replyService.getResponseUser(targetRepNo);
+		if (responseUser == null) {
+			System.out.println("해당 번호의 댓글은 존재하지 않습니다.");
+			return;
+		}
+		if (!responseUser.equals(loginUserName)) {
+			System.out.println("삭제 권한이 없습니다.");
+			return;
+		}
+		
+		if (replyService.remove(targetRepNo)) {
+			System.out.println("삭제 성공!");
+		} else {
+			System.out.println("삭제 실패");
+		}
+		
 	}
 
 	private void modifyBoard() {
@@ -229,6 +328,7 @@ public class BoardApp {
 		
 		if (boardService.remove(targetNo)) {
 			System.out.println("삭제 성공!");
+			// TODO : 게시글을 삭제하면 해당 게시글의 댓글도 전부 삭제
 		} else {
 			System.out.println("삭제 실패");
 		}
