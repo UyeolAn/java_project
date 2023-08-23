@@ -3,11 +3,11 @@ package co.yedam.user;
 public class User {
 	
 	// field
-	private String userName;
+	private String userName; // user_name
 	
-	private String userId;
+	private String userId; // user_id
 	
-	private String userPwd;
+	private String userPwd; // user_pwd
 	
 	
 	// constructor

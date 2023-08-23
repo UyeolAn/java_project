@@ -5,25 +5,23 @@ import java.util.List;
 // 파일 저장, DB 저장
 public interface BoardService {
 	
-	// 등록(추가)
-	public boolean add(Board board);
+	// main method
+	public boolean add(Board board); // 등록(추가)
 	
-	// 목록
-	public List<Board> list(int page);
+	public List<Board> list(int page); // 목록
 	
-	// 상세조회
-	public Board search(int brdNo);
+	public Board search(int brdNo); // 상세조회
 	
-	// 수정 : 내용만 수정
-	public boolean modify(Board board);
+	public boolean modify(Board board); // 수정 : 내용만 수정
 	
-	// 삭제
-	public boolean remove(int brdNo);
+	public boolean remove(int brdNo); // 삭제
 	
-	// 종료
-	public void exit();
+	public void exit(); // 종료
 	
-	// 전체 개수
-	public int getTotal();
+	
+	// sub method
+	public int getTotal(); // 전체 개수 반환
+	
+	public String getResponseUser(int brdNo); // 글 번호 -> 작성자 반환
 	
 }

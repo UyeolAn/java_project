@@ -103,11 +103,13 @@ public class BoardServiceImpl implements BoardService {
 
 	private void savetoFile() {
 		try {
+			System.out.println("저장중입니다..");
 			ObjectOutputStream oos = new ObjectOutputStream(
 					new FileOutputStream("src/co/yedam/board/board.dat"));
 			oos.writeObject(boardList);
 			oos.flush();
 			oos.close();
+			System.out.println("저장 완료!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -118,4 +120,13 @@ public class BoardServiceImpl implements BoardService {
 		return boardList.size();
 	}
 
+	@Override
+	public String getResponseUser(int brdNo) {
+		for (Board brd : boardList) {
+			if (brd.getBrdNo() == brdNo) {
+				return brd.getBrdWriter();
+			}
+		}
+		return null;
+	}
 }

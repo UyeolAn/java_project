@@ -1,11 +1,14 @@
-package co.yedam.board;
+package co.yedam;
 
 import java.util.List;
 import java.util.Scanner;
 
+import co.yedam.board.Board;
+import co.yedam.board.BoardService;
+import co.yedam.board.BoardServiceJdbc;
 import co.yedam.user.User;
 import co.yedam.user.UserService;
-import co.yedam.user.UserServiceImpl;
+import co.yedam.user.UserServiceJdbc;
 
 public class BoardApp {
 	
@@ -14,9 +17,10 @@ public class BoardApp {
 	
 	private BoardService boardService = new BoardServiceJdbc();
 	
-	private UserService userService = new UserServiceImpl();
+	private UserService userService = new UserServiceJdbc();
 	
 	private String loginUserName = null;
+	
 	
 	// method
 	public void start() {
@@ -49,9 +53,9 @@ public class BoardApp {
 	
 		while (run) {
 		
-			System.out.println("-----------------------------------------------");
+			System.out.println("-------------------------------------------------");
 			System.out.println("1.등록 | 2.목록 | 3.상세조회 | 4.수정 | 5.삭제 | 9.종료");
-			System.out.println("-----------------------------------------------");
+			System.out.println("-------------------------------------------------");
 			System.out.println("번호 >>");
 			
 			int menu = inputNumber();
@@ -73,9 +77,7 @@ public class BoardApp {
 					removeBoard();
 					break;
 				case 9:
-					System.out.println("저장중입니다..");
 					boardService.exit();
-					System.out.println("저장 완료!");
 					run = false;
 					break;
 				default:
@@ -153,9 +155,9 @@ public class BoardApp {
 		System.out.println("-----------------");
 		
 		System.out.println("번호 >>");
-		String targetNo = scn.nextLine();
+		int targetNo = parseNumber(scn.nextLine());
 		
-		Board searchBoard = boardService.search(parseNumber(targetNo));
+		Board searchBoard = boardService.search(targetNo);
 		if (searchBoard != null) {
 			System.out.println(searchBoard.showInfo());
 		} else {
@@ -179,13 +181,23 @@ public class BoardApp {
 		System.out.println("-------------");
 		
 		System.out.println("수정대상 번호 >>");
-		String targetNo = scn.nextLine();
+		int targetNo = parseNumber(scn.nextLine());
+		
+		String responseUser = boardService.getResponseUser(targetNo);
+		if (responseUser == null) {
+			System.out.println("해당 번호의 게시글은 존재하지 않습니다.");
+			return;
+		}
+		if (!responseUser.equals(loginUserName)) {
+			System.out.println("수정 권한이 없습니다.");
+			return;
+		}
 		
 		System.out.println("수정 내용 >>");
 		String newContent = scn.nextLine();
 		
 		Board brd = new Board();
-		brd.setBrdNo(parseNumber(targetNo));
+		brd.setBrdNo(targetNo);
 		brd.setBrdContent(newContent);
 		
 		if (boardService.modify(brd)) {
@@ -203,9 +215,19 @@ public class BoardApp {
 		System.out.println("-------------");
 		
 		System.out.println("번호 >>");
-		String targetNo = scn.nextLine();
+		int targetNo = parseNumber(scn.nextLine());
 		
-		if (boardService.remove(parseNumber(targetNo))) {
+		String responseUser = boardService.getResponseUser(targetNo);
+		if (responseUser == null) {
+			System.out.println("해당 번호의 게시글은 존재하지 않습니다.");
+			return;
+		}
+		if (!responseUser.equals(loginUserName)) {
+			System.out.println("삭제 권한이 없습니다.");
+			return;
+		}
+		
+		if (boardService.remove(targetNo)) {
 			System.out.println("삭제 성공!");
 		} else {
 			System.out.println("삭제 실패");
