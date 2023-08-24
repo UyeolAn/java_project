@@ -1,4 +1,4 @@
-package co.yedam.reply;
+package co.yedam.vo;
 
 public class Reply {
 

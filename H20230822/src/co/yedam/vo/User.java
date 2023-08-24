@@ -1,4 +1,4 @@
-package co.yedam.user;
+package co.yedam.vo;
 
 public class User {
 	

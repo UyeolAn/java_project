@@ -1,11 +1,12 @@
-package co.yedam.user;
+package co.yedam.service.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import co.yedam.Dao;
+import co.yedam.common.Dao;
+import co.yedam.vo.User;
 
 public class UserServiceJdbc implements UserService {
 	

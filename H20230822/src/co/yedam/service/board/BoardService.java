@@ -1,6 +1,8 @@
-package co.yedam.board;
+package co.yedam.service.board;
 
 import java.util.List;
+
+import co.yedam.vo.Board;
 
 public interface BoardService {
 	

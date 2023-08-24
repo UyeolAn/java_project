@@ -1,17 +1,17 @@
-package co.yedam;
+package co.yedam.controll;
 
 import java.util.List;
 import java.util.Scanner;
 
-import co.yedam.board.Board;
-import co.yedam.board.BoardService;
-import co.yedam.board.BoardServiceJdbc;
-import co.yedam.reply.Reply;
-import co.yedam.reply.ReplyService;
-import co.yedam.reply.ReplyServiceJdbc;
-import co.yedam.user.User;
-import co.yedam.user.UserService;
-import co.yedam.user.UserServiceJdbc;
+import co.yedam.service.board.BoardService;
+import co.yedam.service.board.BoardServiceJdbc;
+import co.yedam.service.reply.ReplyService;
+import co.yedam.service.reply.ReplyServiceJdbc;
+import co.yedam.service.user.UserService;
+import co.yedam.service.user.UserServiceJdbc;
+import co.yedam.vo.Board;
+import co.yedam.vo.Reply;
+import co.yedam.vo.User;
 
 public class BoardApp {
 	

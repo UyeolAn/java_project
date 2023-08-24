@@ -1,4 +1,4 @@
-package co.yedam.user;
+package co.yedam.service.user;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import co.yedam.vo.User;
 
 public class UserServiceImpl implements UserService {
 	
@@ -21,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	private void init() {	
 		try {
 			BufferedReader br = new BufferedReader(
-					new FileReader(new File("src/co/yedam/user/user.txt")));
+					new FileReader(new File("src/co/yedam/data/user.txt")));
 			String line;
 			while ((line = br.readLine()) != null && line != "") {
 				String[] fileData = line.split(" ");

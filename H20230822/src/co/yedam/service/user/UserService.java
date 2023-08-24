@@ -1,4 +1,6 @@
-package co.yedam.user;
+package co.yedam.service.user;
+
+import co.yedam.vo.User;
 
 // 파일, DB 로부터 회원정보를 불러옴
 public interface UserService {

@@ -1,4 +1,4 @@
-package co.yedam.board;
+package co.yedam.service.board;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import co.yedam.vo.Board;
 
 public class BoardServiceImpl implements BoardService {
 
@@ -23,7 +25,7 @@ public class BoardServiceImpl implements BoardService {
 	private void init() {
 		try {
 			ObjectInputStream ois = new ObjectInputStream(
-					new FileInputStream("src/co/yedam/board/board.dat"));
+					new FileInputStream("src/co/yedam/data/board.dat"));
 			boardList = (List<Board>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {

@@ -1,6 +1,8 @@
-package co.yedam.reply;
+package co.yedam.service.reply;
 
 import java.util.List;
+
+import co.yedam.vo.Reply;
 
 
 public interface ReplyService {

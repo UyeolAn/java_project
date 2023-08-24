@@ -1,4 +1,4 @@
-package co.yedam.board;
+package co.yedam.vo;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
